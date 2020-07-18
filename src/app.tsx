@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { LinearProgress, Typography } from '@material-ui/core';
 
 import AppBar from './components/app-bar';
-import Jumbotron from './components/jumbotron';
+import Header from './components/header';
 import Movies from './components/movies';
 import useDiscoverMovies from './hooks/use-discover-movies';
 import useSearchMovies from './hooks/use-search-movies';
@@ -65,7 +65,7 @@ const App: React.FunctionComponent = () => {
     <div>
       <AppBar />
       <main>
-        <Jumbotron
+        <Header
           handleQueryMovies={setQuery}
           handleFilterByRating={handleFilterByRating}
         />

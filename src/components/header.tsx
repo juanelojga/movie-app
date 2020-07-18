@@ -3,7 +3,6 @@ import { Grid, Typography, Container, TextField } from '@material-ui/core';
 import Rating from '@material-ui/lab/Rating';
 import { makeStyles } from '@material-ui/core/styles';
 
-const DEFAULT_RATING_VALUE = 0;
 const DEBOUNCE_TIME = 1000;
 
 const useStyles = makeStyles((theme) => ({
@@ -27,7 +26,6 @@ const Jumbotron: React.FunctionComponent<Props> = ({
 }: Props) => {
   const classes = useStyles();
 
-  const [rating, setRating] = useState<number>(DEFAULT_RATING_VALUE);
   const [query, setQuery] = useState<string>('');
 
   const debounceTimeoutRef = useRef<ReturnType<typeof setTimeout>>();
@@ -77,11 +75,8 @@ const Jumbotron: React.FunctionComponent<Props> = ({
             <Grid item>
               <Rating
                 name="rating-filter-input"
-                value={rating}
                 onChange={(event, newRating) => {
-                  if (newRating) {
-                    setRating(newRating);
-                  }
+                  handleFilterByRating(newRating ? newRating : 0);
                 }}
               />
             </Grid>

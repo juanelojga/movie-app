@@ -35,13 +35,15 @@ const Movies = ({ data }: Props) => {
       {movies.length ? (
         <Container className={classes.cardGrid} maxWidth="md">
           <Grid container spacing={4}>
-            {movies.map((movie) => (
-              <MovieCard
-                key={movie.id}
-                movie={movie}
-                handleShowDetails={() => onShowDetails(movie)}
-              />
-            ))}
+            {movies
+              .sort((a, b) => b.vote_average - a.vote_average)
+              .map((movie) => (
+                <MovieCard
+                  key={movie.id}
+                  movie={movie}
+                  handleShowDetails={() => onShowDetails(movie)}
+                />
+              ))}
           </Grid>
         </Container>
       ) : (
