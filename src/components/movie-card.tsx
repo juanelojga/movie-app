@@ -42,8 +42,15 @@ const truncate = (text: string): string => {
     : text;
 };
 
-const MovieCard = ({ poster_path, title, vote_average, overview }: Movie) => {
+interface Props {
+  movie: Movie;
+  handleShowDetails: () => void;
+}
+
+const MovieCard = ({ movie, handleShowDetails }: Props) => {
   const classes = useStyles();
+
+  const { poster_path, title, vote_average, overview } = movie;
 
   return (
     <Grid item xs={12} sm={6} md={4}>
@@ -59,12 +66,12 @@ const MovieCard = ({ poster_path, title, vote_average, overview }: Movie) => {
           </Typography>
           <Typography paragraph>{truncate(overview)}</Typography>
           <div className={classes.cardRating}>
-            <Typography variant="body2">Rating</Typography>
+            <Typography component="h6">Rating</Typography>
             <Rating name="vote-average" value={vote_average / 2} readOnly />
           </div>
         </CardContent>
         <CardActions>
-          <Button size="small" color="primary">
+          <Button size="small" color="primary" onClick={handleShowDetails}>
             More details
           </Button>
         </CardActions>
