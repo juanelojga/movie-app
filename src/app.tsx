@@ -28,7 +28,7 @@ const App: React.FunctionComponent = () => {
     error: searchMoviesError
   } = useSearchMovies(query);
 
-  const showMovies = () => {
+  const showResults = () => {
     if (
       discoverMoviesStatus === QueryStatus.LOADING ||
       searchMoviesStatus === QueryStatus.LOADING
@@ -63,7 +63,7 @@ const App: React.FunctionComponent = () => {
       <AppBar />
       <main>
         <Header handleQueryMovies={setQuery} handleFilterByRating={setRating} />
-        {showMovies()}
+        {showResults()}
       </main>
     </div>
   );

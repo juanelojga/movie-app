@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const CustomAppBar = () => {
+const CustomAppBar: React.FunctionComponent = () => {
   const classes = useStyles();
 
   return (
