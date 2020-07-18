@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Grid, Container } from '@material-ui/core';
+import { Grid, Container, Typography, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import MovieCard from './movie-card';
@@ -23,7 +23,7 @@ const Movies = ({ data }: Props) => {
   const { results: movies } = data;
 
   const [openDetails, setOpenDetails] = useState<boolean>(false);
-  const [selectedMovie, setSelectedMovie] = useState<Movie>(movies[0]);
+  const [selectedMovie, setSelectedMovie] = useState<Movie>();
 
   const onShowDetails = (movie: Movie) => {
     setSelectedMovie(movie);
@@ -32,20 +32,28 @@ const Movies = ({ data }: Props) => {
 
   return (
     <div>
-      <Container className={classes.cardGrid} maxWidth="md">
-        <Grid container spacing={4}>
-          {movies.map((movie) => (
-            <MovieCard
-              key={movie.id}
-              movie={movie}
-              handleShowDetails={() => onShowDetails(movie)}
-            />
-          ))}
-        </Grid>
-      </Container>
+      {movies.length ? (
+        <Container className={classes.cardGrid} maxWidth="md">
+          <Grid container spacing={4}>
+            {movies.map((movie) => (
+              <MovieCard
+                key={movie.id}
+                movie={movie}
+                handleShowDetails={() => onShowDetails(movie)}
+              />
+            ))}
+          </Grid>
+        </Container>
+      ) : (
+        <Paper elevation={0}>
+          <Typography variant="h5" align="center" gutterBottom>
+            No results were found
+          </Typography>
+        </Paper>
+      )}
       <DetailsDialog
         open={openDetails}
-        movie={selectedMovie}
+        movie={selectedMovie ? selectedMovie : ({} as Movie)}
         handleClose={() => setOpenDetails(false)}
       />
     </div>

@@ -12,7 +12,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Rating } from '@material-ui/lab';
 
 import { Movie } from '../definitions';
-import { MOVIE_IMAGE_BASE_URL } from '../constants';
+import { MOVIE_IMAGE_BASE_URL, MOVIE_NO_IMAGE_URL } from '../constants';
 
 const OVERVIEW_MAX_LENGTH = 100;
 
@@ -47,7 +47,10 @@ interface Props {
   handleShowDetails: () => void;
 }
 
-const MovieCard = ({ movie, handleShowDetails }: Props) => {
+const MovieCard: React.FunctionComponent<Props> = ({
+  movie,
+  handleShowDetails
+}: Props) => {
   const classes = useStyles();
 
   const { poster_path, title, vote_average, overview } = movie;
@@ -57,7 +60,11 @@ const MovieCard = ({ movie, handleShowDetails }: Props) => {
       <Card className={classes.card}>
         <CardMedia
           className={classes.cardMedia}
-          image={`${MOVIE_IMAGE_BASE_URL}/${poster_path}`}
+          image={
+            poster_path
+              ? `${MOVIE_IMAGE_BASE_URL}/${poster_path}`
+              : MOVIE_NO_IMAGE_URL
+          }
           title={title}
         />
         <CardContent className={classes.cardContent}>
