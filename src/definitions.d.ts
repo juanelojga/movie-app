@@ -15,7 +15,7 @@ export interface Movie {
   vote_average: number;
 }
 
-export interface Movies {
+export interface SearchMovieResponse {
   page: number;
   results: Movie[];
   total_results: number;
