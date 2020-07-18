@@ -9,6 +9,7 @@ import {
   Typography
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { Rating } from '@material-ui/lab';
 
 import { Movie } from '../definitions';
 import { MOVIE_IMAGE_BASE_URL } from '../constants';
@@ -25,7 +26,13 @@ const useStyles = makeStyles(() => ({
     paddingTop: '56.25%' // 16:9
   },
   cardContent: {
-    flexGrow: 1
+    flexGrow: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    minHeight: '350px'
+  },
+  cardRating: {
+    marginTop: 'auto'
   }
 }));
 
@@ -50,11 +57,15 @@ const MovieCard = ({ poster_path, title, vote_average, overview }: Movie) => {
           <Typography gutterBottom variant="h5" component="h2">
             {title}
           </Typography>
-          <Typography>{truncate(overview)}</Typography>
+          <Typography paragraph>{truncate(overview)}</Typography>
+          <div className={classes.cardRating}>
+            <Typography variant="body2">Rating</Typography>
+            <Rating name="vote-average" value={vote_average / 2} readOnly />
+          </div>
         </CardContent>
         <CardActions>
           <Button size="small" color="primary">
-            Details
+            More details
           </Button>
         </CardActions>
       </Card>
