@@ -14,6 +14,7 @@ enum QueryStatus {
 
 const App: React.FunctionComponent = () => {
   const [query, setQuery] = useState<string>('');
+  const [rating, setRating] = useState<number>(0);
 
   const {
     data: discoverMoviesData,
@@ -26,10 +27,6 @@ const App: React.FunctionComponent = () => {
     status: searchMoviesStatus,
     error: searchMoviesError
   } = useSearchMovies(query);
-
-  const handleFilterByRating = (rating: number) => {
-    console.log(rating);
-  };
 
   const showMovies = () => {
     if (
@@ -51,11 +48,11 @@ const App: React.FunctionComponent = () => {
     }
 
     if (!query && discoverMoviesData) {
-      return <Movies data={discoverMoviesData} />;
+      return <Movies data={discoverMoviesData} ratingFilterValue={rating} />;
     }
 
     if (query && searchMoviesData) {
-      return <Movies data={searchMoviesData} />;
+      return <Movies data={searchMoviesData} ratingFilterValue={rating} />;
     }
 
     return null;
@@ -65,10 +62,7 @@ const App: React.FunctionComponent = () => {
     <div>
       <AppBar />
       <main>
-        <Header
-          handleQueryMovies={setQuery}
-          handleFilterByRating={handleFilterByRating}
-        />
+        <Header handleQueryMovies={setQuery} handleFilterByRating={setRating} />
         {showMovies()}
       </main>
     </div>

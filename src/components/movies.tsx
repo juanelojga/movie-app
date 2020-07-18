@@ -6,6 +6,12 @@ import MovieCard from './movie-card';
 import DetailsDialog from './details-dialog';
 import { SearchMovieResponse, Movie } from '../definitions.d';
 
+const filterByRating = (rating: number, voteAverage: number) => {
+  const maxRating = rating * 2;
+  const minRating = rating * 2 - 2;
+  return rating ? voteAverage > minRating && voteAverage <= maxRating : true;
+};
+
 const useStyles = makeStyles((theme) => ({
   cardGrid: {
     paddingTop: theme.spacing(8),
@@ -15,15 +21,16 @@ const useStyles = makeStyles((theme) => ({
 
 interface Props {
   data: SearchMovieResponse;
+  ratingFilterValue: number;
 }
 
-const Movies = ({ data }: Props) => {
+const Movies = ({ data, ratingFilterValue }: Props) => {
   const classes = useStyles();
 
   const { results: movies } = data;
 
   const [openDetails, setOpenDetails] = useState<boolean>(false);
-  const [selectedMovie, setSelectedMovie] = useState<Movie>();
+  const [selectedMovie, setSelectedMovie] = useState<Movie>({} as Movie);
 
   const onShowDetails = (movie: Movie) => {
     setSelectedMovie(movie);
@@ -36,6 +43,9 @@ const Movies = ({ data }: Props) => {
         <Container className={classes.cardGrid} maxWidth="md">
           <Grid container spacing={4}>
             {movies
+              .filter((movie) =>
+                filterByRating(ratingFilterValue, movie.vote_average)
+              )
               .sort((a, b) => b.vote_average - a.vote_average)
               .map((movie) => (
                 <MovieCard
@@ -55,7 +65,7 @@ const Movies = ({ data }: Props) => {
       )}
       <DetailsDialog
         open={openDetails}
-        movie={selectedMovie ? selectedMovie : ({} as Movie)}
+        movie={selectedMovie}
         handleClose={() => setOpenDetails(false)}
       />
     </div>

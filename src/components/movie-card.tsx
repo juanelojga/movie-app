@@ -74,7 +74,11 @@ const MovieCard: React.FunctionComponent<Props> = ({
           <Typography paragraph>{truncate(overview)}</Typography>
           <div className={classes.cardRating}>
             <Typography component="h6">Rating</Typography>
-            <Rating name="vote-average" value={vote_average / 2} readOnly />
+            <Rating
+              name="vote-average"
+              value={Math.ceil(vote_average / 2)}
+              readOnly
+            />
           </div>
         </CardContent>
         <CardActions>

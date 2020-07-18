@@ -56,7 +56,7 @@ const Jumbotron: React.FunctionComponent<Props> = ({
         </Typography>
         <Typography variant="h5" align="center" color="textSecondary" paragraph>
           Welcome to the local movie theater. Here is our list of recommended
-          movies. You can search one movie, or filter movies by rating.
+          movies. You can search movies, or filter movies by rating.
         </Typography>
         <div className={classes.heroButtons}>
           <Grid container spacing={2} justify="center" alignItems="center">
