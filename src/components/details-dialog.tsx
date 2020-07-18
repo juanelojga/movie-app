@@ -16,7 +16,7 @@ import {
 } from '@material-ui/core';
 
 import { Movie } from '../definitions';
-import { MOVIE_IMAGE_BASE_URL } from '../constants';
+import { MOVIE_IMAGE_BASE_URL, MOVIE_NO_IMAGE_URL } from '../constants';
 
 const useStyles = makeStyles({
   cardMedia: {
@@ -30,7 +30,11 @@ interface Props {
   handleClose: () => void;
 }
 
-const DetailsDialog = ({ open, movie, handleClose }: Props) => {
+const DetailsDialog: React.FunctionComponent<Props> = ({
+  open,
+  movie,
+  handleClose
+}: Props) => {
   const classes = useStyles();
 
   const {
@@ -63,7 +67,11 @@ const DetailsDialog = ({ open, movie, handleClose }: Props) => {
         <Card>
           <CardMedia
             className={classes.cardMedia}
-            image={`${MOVIE_IMAGE_BASE_URL}/${poster_path}`}
+            image={
+              poster_path
+                ? `${MOVIE_IMAGE_BASE_URL}/${poster_path}`
+                : MOVIE_NO_IMAGE_URL
+            }
             title={title}
           />
           <CardContent>
